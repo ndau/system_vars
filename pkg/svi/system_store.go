@@ -25,8 +25,8 @@ func GetFrom(ss SystemStore, loc Location, value msgp.Unmarshaler) error {
 }
 
 // GetSVI returns the System Variable Indirection map from any SystemStore
-func GetSVI(ss SystemStore, loc Location) (SVIMap, error) {
-	svi := make(SVIMap)
+func GetSVI(ss SystemStore, loc Location) (Map, error) {
+	svi := make(Map)
 	err := GetFrom(ss, loc, &svi)
 	if err != nil {
 		return nil, err
