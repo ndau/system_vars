@@ -1,7 +1,6 @@
 package svi
 
 import (
-	"github.com/oneiro-ndev/msgp-well-known-types/wkt"
 	"github.com/tinylib/msgp/msgp"
 )
 
@@ -15,21 +14,18 @@ type SystemStore interface {
 	// This should normally be avoided in favor of the higher-level Get
 	// method, but there are use cases which require this kind of low-level
 	// access.
-	GetRaw(namespace []byte, key msgp.Marshaler) ([]byte, error)
-	Get(namespace []byte, key msgp.Marshaler, value msgp.Unmarshaler) error
+	GetRaw(loc Location) ([]byte, error)
+	Get(loc Location, value msgp.Unmarshaler) error
 }
 
 // GetFrom gets the requested namespaced key from any SystemStore
 func GetFrom(ss SystemStore, loc Location, value msgp.Unmarshaler) error {
-	return ss.Get(loc.Namespace, wkt.Bytes(loc.Key), value)
+	return ss.Get(loc, value)
 }
 
 // GetSVI returns the System Variable Indirection map from any SystemStore
 func GetSVI(ss SystemStore, loc Location) (Map, error) {
 	svi := make(Map)
 	err := GetFrom(ss, loc, &svi)
-	if err != nil {
-		return nil, err
-	}
 	return svi, err
 }
