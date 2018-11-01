@@ -1,8 +1,12 @@
 package svi
 
 import (
+	"encoding"
+	"encoding/base64"
 	"errors"
 	"fmt"
+
+	"github.com/tinylib/msgp/msgp"
 )
 
 //go:generate msgp
@@ -41,6 +45,30 @@ type DeferredChange struct {
 // The BPC is encouraged to ensure that it always generates valid Map
 // updates, as failure to do so will likely lead to forks.
 type Map map[string]DeferredChange
+
+var _ encoding.TextMarshaler = (*Map)(nil)
+var _ encoding.TextUnmarshaler = (*Map)(nil)
+var _ msgp.Marshaler = (*Map)(nil)
+var _ msgp.Unmarshaler = (*Map)(nil)
+
+// MarshalText implements encoding.TextMarshaler
+func (m Map) MarshalText() ([]byte, error) {
+	bytes, err := m.MarshalMsg(nil)
+	if err != nil {
+		return nil, err
+	}
+	return []byte(base64.StdEncoding.EncodeToString(bytes)), nil
+}
+
+// UnmarshalText implements encoding.TextUnmarshaler
+func (m *Map) UnmarshalText(text []byte) error {
+	bytes, err := base64.StdEncoding.DecodeString(string(text))
+	if err != nil {
+		return err
+	}
+	_, err = m.UnmarshalMsg(bytes)
+	return err
+}
 
 // Marshal this Map to a byte slice
 func (m *Map) Marshal() ([]byte, error) {
