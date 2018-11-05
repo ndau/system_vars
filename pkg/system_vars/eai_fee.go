@@ -2,7 +2,9 @@ package system_vars
 
 import (
 	"encoding"
-	"encoding/base64"
+	"fmt"
+	"strconv"
+	"strings"
 
 	"github.com/oneiro-ndev/ndaumath/pkg/address"
 	math "github.com/oneiro-ndev/ndaumath/pkg/types"
@@ -37,22 +39,33 @@ var _ encoding.TextUnmarshaler = (*EAIFee)(nil)
 
 // MarshalText implements encoding.TextMarshaler
 func (f EAIFee) MarshalText() ([]byte, error) {
-	bytes, err := f.MarshalMsg(nil)
-	if err != nil {
-		return bytes, errors.Wrap(err, "marshalling bytes")
+	addr := ""
+	if f.To != nil {
+		addr = f.To.String()
 	}
-	return []byte(base64.StdEncoding.EncodeToString(bytes)), nil
+	return []byte(fmt.Sprintf("%d:%s", f.Fee, addr)), nil
 }
 
 // UnmarshalText implements encoding.TextUnmarshaler
 func (f *EAIFee) UnmarshalText(text []byte) error {
-	bytes, err := base64.StdEncoding.DecodeString(string(text))
-	if err != nil {
-		return errors.Wrap(err, "decoding b64")
+	parts := strings.Split(string(text), ":")
+	if len(parts) != 2 {
+		return fmt.Errorf("expected 2 parts; got %d", len(parts))
 	}
-	_, err = f.UnmarshalMsg(bytes)
+
+	nd, err := strconv.ParseInt(parts[0], 10, 64)
 	if err != nil {
-		return errors.Wrap(err, "unmarshalling bytes")
+		return errors.Wrap(err, "parsing ndau qty as number")
+	}
+	f.Fee = math.Ndau(nd)
+
+	f.To = nil
+	if len(parts[1]) > 0 {
+		addr, err := address.Validate(parts[1])
+		if err != nil {
+			return errors.Wrap(err, "parsing address")
+		}
+		f.To = &addr
 	}
 
 	return nil
