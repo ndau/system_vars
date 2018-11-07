@@ -61,7 +61,7 @@ func (m Map) MarshalText() ([]byte, error) {
 }
 
 // UnmarshalText implements encoding.TextUnmarshaler
-func (m Map) UnmarshalText(text []byte) error {
+func (m *Map) UnmarshalText(text []byte) error {
 	bytes, err := base64.StdEncoding.DecodeString(string(text))
 	if err != nil {
 		return err
