@@ -1,4 +1,4 @@
-package system_vars
+package sv
 
 // ReleaseFromEndowmentAddressName is the name of the ReleaseFromEndowmentAddress system variable
 //

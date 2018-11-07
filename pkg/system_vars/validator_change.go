@@ -1,4 +1,4 @@
-package system_vars
+package sv
 
 // CommandValidatorChangeAddressName is the name of the CommandValidatorChangeAddress system variable
 //

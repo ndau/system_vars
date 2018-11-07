@@ -1,4 +1,4 @@
-package system_vars
+package sv
 
 import (
 	"encoding"

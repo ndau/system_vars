@@ -1,4 +1,4 @@
-package system_vars
+package sv
 
 // MinDurationBetweenNodeRewardNominationsName names the minimum duration
 // permitted between node rewards nominations

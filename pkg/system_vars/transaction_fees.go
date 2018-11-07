@@ -1,4 +1,4 @@
-package system_vars
+package sv
 
 // TxFeeScriptName is the name of the TxFeeScript system variable
 //

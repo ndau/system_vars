@@ -1,4 +1,4 @@
-package system_vars
+package sv
 
 // UnlockedRateTableName is the name of the UnlockedRateTable system variable.
 //
