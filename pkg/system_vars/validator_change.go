@@ -8,5 +8,24 @@ const CommandValidatorChangeAddressName = "CommandValidatorChangeAddress"
 // CommandValidatorChangeOwnershipName is the name of the public ownership key
 const CommandValidatorChangeOwnershipName = "CommandValidatorChangeOwnership"
 
-// CommandValidatorChangeOwnershipPrivateName is the name of the public ownership key
+// CommandValidatorChangeOwnershipPrivateName is the name of the private ownership key
 const CommandValidatorChangeOwnershipPrivateName = "CommandValidatorChangeOwnershipPrivate"
+
+// CommandValidatorChangeValidationName is the name of the public validation key
+const CommandValidatorChangeValidationName = "CommandValidatorChangeValidation"
+
+// CommandValidatorChangeValidationPrivateName is the name of the private validation key
+const CommandValidatorChangeValidationPrivateName = "CommandValidatorChangeValidationPrivate"
+
+// CommandValidatorChange encapsulates data about the CommandValidatorChange system variables in a structured way.
+var CommandValidatorChange = SysAcct{
+	Name: "CommandValidatorChange",
+	Ownership: Keypair{
+		Public:  CommandValidatorChangeOwnershipName,
+		Private: CommandValidatorChangeOwnershipPrivateName,
+	},
+	Validation: Keypair{
+		Public:  CommandValidatorChangeValidationName,
+		Private: CommandValidatorChangeValidationPrivateName,
+	},
+}
