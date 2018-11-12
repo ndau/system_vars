@@ -19,7 +19,8 @@ const ReleaseFromEndowmentValidationPrivateName = "ReleaseFromEndowmentValidatio
 
 // ReleaseFromEndowment encapsulates data about the ReleaseFromEndowment system variables in a structured way.
 var ReleaseFromEndowment = SysAcct{
-	Name: "ReleaseFromEndowment",
+	Name:    "ReleaseFromEndowment",
+	Address: ReleaseFromEndowmentAddressName,
 	Ownership: Keypair{
 		Public:  ReleaseFromEndowmentOwnershipName,
 		Private: ReleaseFromEndowmentOwnershipPrivateName,

@@ -31,7 +31,8 @@ const NodeRewardNominationTimeoutName = "NodeRewardNominationTimeout"
 
 // NominateNodeReward encapsulates data about the NominateNodeReward system variables in a structured way.
 var NominateNodeReward = SysAcct{
-	Name: "NominateNodeReward",
+	Name:    "NominateNodeReward",
+	Address: NominateNodeRewardAddressName,
 	Ownership: Keypair{
 		Public:  NominateNodeRewardOwnershipName,
 		Private: NominateNodeRewardOwnershipPrivateName,

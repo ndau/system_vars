@@ -16,6 +16,7 @@ type Keypair struct {
 // which exist either in the SystemStore or in the associated data.
 type SysAcct struct {
 	Name       string
+	Address    string
 	Ownership  Keypair
 	Validation Keypair
 }

@@ -19,7 +19,8 @@ const CommandValidatorChangeValidationPrivateName = "CommandValidatorChangeValid
 
 // CommandValidatorChange encapsulates data about the CommandValidatorChange system variables in a structured way.
 var CommandValidatorChange = SysAcct{
-	Name: "CommandValidatorChange",
+	Name:    "CommandValidatorChange",
+	Address: CommandValidatorChangeAddressName,
 	Ownership: Keypair{
 		Public:  CommandValidatorChangeOwnershipName,
 		Private: CommandValidatorChangeOwnershipPrivateName,
