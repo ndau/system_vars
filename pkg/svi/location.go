@@ -1,5 +1,7 @@
 package svi
 
+import "github.com/oneiro-ndev/msgp-well-known-types/wkt"
+
 //go:generate msgp
 //msgp:tuple Location
 
@@ -10,14 +12,14 @@ package svi
 // prohibiting someone from using a jpeg of a kitten as they key to a system
 // variable.
 type Location struct {
-	Namespace []byte
-	Key       []byte
+	Namespace wkt.Bytes
+	Key       wkt.Bytes
 }
 
 // NewLocation constructs a Location from a namespace and a key
 func NewLocation(ns []byte, key string) Location {
 	return Location{
-		Namespace: ns,
-		Key:       []byte(key),
+		Namespace: wkt.Bytes(ns),
+		Key:       wkt.Bytes([]byte(key)),
 	}
 }
