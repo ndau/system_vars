@@ -17,11 +17,11 @@ func (z *Location) DecodeMsg(dc *msgp.Reader) (err error) {
 		err = msgp.ArrayError{Wanted: 2, Got: zb0001}
 		return
 	}
-	z.Namespace, err = dc.ReadBytes(z.Namespace)
+	err = z.Namespace.DecodeMsg(dc)
 	if err != nil {
 		return
 	}
-	z.Key, err = dc.ReadBytes(z.Key)
+	err = z.Key.DecodeMsg(dc)
 	if err != nil {
 		return
 	}
@@ -35,11 +35,11 @@ func (z *Location) EncodeMsg(en *msgp.Writer) (err error) {
 	if err != nil {
 		return
 	}
-	err = en.WriteBytes(z.Namespace)
+	err = z.Namespace.EncodeMsg(en)
 	if err != nil {
 		return
 	}
-	err = en.WriteBytes(z.Key)
+	err = z.Key.EncodeMsg(en)
 	if err != nil {
 		return
 	}
@@ -51,8 +51,14 @@ func (z *Location) MarshalMsg(b []byte) (o []byte, err error) {
 	o = msgp.Require(b, z.Msgsize())
 	// array header, size 2
 	o = append(o, 0x92)
-	o = msgp.AppendBytes(o, z.Namespace)
-	o = msgp.AppendBytes(o, z.Key)
+	o, err = z.Namespace.MarshalMsg(o)
+	if err != nil {
+		return
+	}
+	o, err = z.Key.MarshalMsg(o)
+	if err != nil {
+		return
+	}
 	return
 }
 
@@ -67,11 +73,11 @@ func (z *Location) UnmarshalMsg(bts []byte) (o []byte, err error) {
 		err = msgp.ArrayError{Wanted: 2, Got: zb0001}
 		return
 	}
-	z.Namespace, bts, err = msgp.ReadBytesBytes(bts, z.Namespace)
+	bts, err = z.Namespace.UnmarshalMsg(bts)
 	if err != nil {
 		return
 	}
-	z.Key, bts, err = msgp.ReadBytesBytes(bts, z.Key)
+	bts, err = z.Key.UnmarshalMsg(bts)
 	if err != nil {
 		return
 	}
@@ -81,6 +87,6 @@ func (z *Location) UnmarshalMsg(bts []byte) (o []byte, err error) {
 
 // Msgsize returns an upper bound estimate of the number of bytes occupied by the serialized message
 func (z *Location) Msgsize() (s int) {
-	s = 1 + msgp.BytesPrefixSize + len(z.Namespace) + msgp.BytesPrefixSize + len(z.Key)
+	s = 1 + z.Namespace.Msgsize() + z.Key.Msgsize()
 	return
 }
