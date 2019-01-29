@@ -1,4 +1,4 @@
 package sv
 
-// MinStakeName names the MinStake system variable
-const MinStakeName = "MinStake"
+// MinNodeRegistrationStakeName names the MinNodeRegistrationStake system variable
+const MinNodeRegistrationStakeName = "MinNodeRegistrationStakeAmount"
