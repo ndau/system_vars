@@ -11,6 +11,7 @@ func (z *Location) DecodeMsg(dc *msgp.Reader) (err error) {
 	var zb0001 uint32
 	zb0001, err = dc.ReadArrayHeader()
 	if err != nil {
+		err = msgp.WrapError(err)
 		return
 	}
 	if zb0001 != 2 {
@@ -19,10 +20,12 @@ func (z *Location) DecodeMsg(dc *msgp.Reader) (err error) {
 	}
 	err = z.Namespace.DecodeMsg(dc)
 	if err != nil {
+		err = msgp.WrapError(err, "Namespace")
 		return
 	}
 	err = z.Key.DecodeMsg(dc)
 	if err != nil {
+		err = msgp.WrapError(err, "Key")
 		return
 	}
 	return
@@ -37,10 +40,12 @@ func (z *Location) EncodeMsg(en *msgp.Writer) (err error) {
 	}
 	err = z.Namespace.EncodeMsg(en)
 	if err != nil {
+		err = msgp.WrapError(err, "Namespace")
 		return
 	}
 	err = z.Key.EncodeMsg(en)
 	if err != nil {
+		err = msgp.WrapError(err, "Key")
 		return
 	}
 	return
@@ -53,10 +58,12 @@ func (z *Location) MarshalMsg(b []byte) (o []byte, err error) {
 	o = append(o, 0x92)
 	o, err = z.Namespace.MarshalMsg(o)
 	if err != nil {
+		err = msgp.WrapError(err, "Namespace")
 		return
 	}
 	o, err = z.Key.MarshalMsg(o)
 	if err != nil {
+		err = msgp.WrapError(err, "Key")
 		return
 	}
 	return
@@ -67,6 +74,7 @@ func (z *Location) UnmarshalMsg(bts []byte) (o []byte, err error) {
 	var zb0001 uint32
 	zb0001, bts, err = msgp.ReadArrayHeaderBytes(bts)
 	if err != nil {
+		err = msgp.WrapError(err)
 		return
 	}
 	if zb0001 != 2 {
@@ -75,10 +83,12 @@ func (z *Location) UnmarshalMsg(bts []byte) (o []byte, err error) {
 	}
 	bts, err = z.Namespace.UnmarshalMsg(bts)
 	if err != nil {
+		err = msgp.WrapError(err, "Namespace")
 		return
 	}
 	bts, err = z.Key.UnmarshalMsg(bts)
 	if err != nil {
+		err = msgp.WrapError(err, "Key")
 		return
 	}
 	o = bts
