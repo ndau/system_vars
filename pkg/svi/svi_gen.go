@@ -13,33 +13,39 @@ func (z *DeferredChange) DecodeMsg(dc *msgp.Reader) (err error) {
 	var zb0001 uint32
 	zb0001, err = dc.ReadMapHeader()
 	if err != nil {
+		err = msgp.WrapError(err)
 		return
 	}
 	for zb0001 > 0 {
 		zb0001--
 		field, err = dc.ReadMapKeyPtr()
 		if err != nil {
+			err = msgp.WrapError(err)
 			return
 		}
 		switch msgp.UnsafeString(field) {
 		case "Current":
 			err = z.Current.DecodeMsg(dc)
 			if err != nil {
+				err = msgp.WrapError(err, "Current")
 				return
 			}
 		case "Future":
 			err = z.Future.DecodeMsg(dc)
 			if err != nil {
+				err = msgp.WrapError(err, "Future")
 				return
 			}
 		case "ChangeOn":
 			z.ChangeOn, err = dc.ReadUint64()
 			if err != nil {
+				err = msgp.WrapError(err, "ChangeOn")
 				return
 			}
 		default:
 			err = dc.Skip()
 			if err != nil {
+				err = msgp.WrapError(err)
 				return
 			}
 		}
@@ -57,6 +63,7 @@ func (z *DeferredChange) EncodeMsg(en *msgp.Writer) (err error) {
 	}
 	err = z.Current.EncodeMsg(en)
 	if err != nil {
+		err = msgp.WrapError(err, "Current")
 		return
 	}
 	// write "Future"
@@ -66,6 +73,7 @@ func (z *DeferredChange) EncodeMsg(en *msgp.Writer) (err error) {
 	}
 	err = z.Future.EncodeMsg(en)
 	if err != nil {
+		err = msgp.WrapError(err, "Future")
 		return
 	}
 	// write "ChangeOn"
@@ -75,6 +83,7 @@ func (z *DeferredChange) EncodeMsg(en *msgp.Writer) (err error) {
 	}
 	err = en.WriteUint64(z.ChangeOn)
 	if err != nil {
+		err = msgp.WrapError(err, "ChangeOn")
 		return
 	}
 	return
@@ -88,12 +97,14 @@ func (z *DeferredChange) MarshalMsg(b []byte) (o []byte, err error) {
 	o = append(o, 0x83, 0xa7, 0x43, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x74)
 	o, err = z.Current.MarshalMsg(o)
 	if err != nil {
+		err = msgp.WrapError(err, "Current")
 		return
 	}
 	// string "Future"
 	o = append(o, 0xa6, 0x46, 0x75, 0x74, 0x75, 0x72, 0x65)
 	o, err = z.Future.MarshalMsg(o)
 	if err != nil {
+		err = msgp.WrapError(err, "Future")
 		return
 	}
 	// string "ChangeOn"
@@ -109,33 +120,39 @@ func (z *DeferredChange) UnmarshalMsg(bts []byte) (o []byte, err error) {
 	var zb0001 uint32
 	zb0001, bts, err = msgp.ReadMapHeaderBytes(bts)
 	if err != nil {
+		err = msgp.WrapError(err)
 		return
 	}
 	for zb0001 > 0 {
 		zb0001--
 		field, bts, err = msgp.ReadMapKeyZC(bts)
 		if err != nil {
+			err = msgp.WrapError(err)
 			return
 		}
 		switch msgp.UnsafeString(field) {
 		case "Current":
 			bts, err = z.Current.UnmarshalMsg(bts)
 			if err != nil {
+				err = msgp.WrapError(err, "Current")
 				return
 			}
 		case "Future":
 			bts, err = z.Future.UnmarshalMsg(bts)
 			if err != nil {
+				err = msgp.WrapError(err, "Future")
 				return
 			}
 		case "ChangeOn":
 			z.ChangeOn, bts, err = msgp.ReadUint64Bytes(bts)
 			if err != nil {
+				err = msgp.WrapError(err, "ChangeOn")
 				return
 			}
 		default:
 			bts, err = msgp.Skip(bts)
 			if err != nil {
+				err = msgp.WrapError(err)
 				return
 			}
 		}
@@ -155,6 +172,7 @@ func (z *Map) DecodeMsg(dc *msgp.Reader) (err error) {
 	var zb0003 uint32
 	zb0003, err = dc.ReadMapHeader()
 	if err != nil {
+		err = msgp.WrapError(err)
 		return
 	}
 	if (*z) == nil {
@@ -170,6 +188,7 @@ func (z *Map) DecodeMsg(dc *msgp.Reader) (err error) {
 		var zb0002 DeferredChange
 		zb0001, err = dc.ReadString()
 		if err != nil {
+			err = msgp.WrapError(err)
 			return
 		}
 		var field []byte
@@ -177,33 +196,39 @@ func (z *Map) DecodeMsg(dc *msgp.Reader) (err error) {
 		var zb0004 uint32
 		zb0004, err = dc.ReadMapHeader()
 		if err != nil {
+			err = msgp.WrapError(err, zb0001)
 			return
 		}
 		for zb0004 > 0 {
 			zb0004--
 			field, err = dc.ReadMapKeyPtr()
 			if err != nil {
+				err = msgp.WrapError(err, zb0001)
 				return
 			}
 			switch msgp.UnsafeString(field) {
 			case "Current":
 				err = zb0002.Current.DecodeMsg(dc)
 				if err != nil {
+					err = msgp.WrapError(err, zb0001, "Current")
 					return
 				}
 			case "Future":
 				err = zb0002.Future.DecodeMsg(dc)
 				if err != nil {
+					err = msgp.WrapError(err, zb0001, "Future")
 					return
 				}
 			case "ChangeOn":
 				zb0002.ChangeOn, err = dc.ReadUint64()
 				if err != nil {
+					err = msgp.WrapError(err, zb0001, "ChangeOn")
 					return
 				}
 			default:
 				err = dc.Skip()
 				if err != nil {
+					err = msgp.WrapError(err, zb0001)
 					return
 				}
 			}
@@ -217,11 +242,13 @@ func (z *Map) DecodeMsg(dc *msgp.Reader) (err error) {
 func (z Map) EncodeMsg(en *msgp.Writer) (err error) {
 	err = en.WriteMapHeader(uint32(len(z)))
 	if err != nil {
+		err = msgp.WrapError(err)
 		return
 	}
 	for zb0005, zb0006 := range z {
 		err = en.WriteString(zb0005)
 		if err != nil {
+			err = msgp.WrapError(err)
 			return
 		}
 		// map header, size 3
@@ -232,6 +259,7 @@ func (z Map) EncodeMsg(en *msgp.Writer) (err error) {
 		}
 		err = zb0006.Current.EncodeMsg(en)
 		if err != nil {
+			err = msgp.WrapError(err, zb0005, "Current")
 			return
 		}
 		// write "Future"
@@ -241,6 +269,7 @@ func (z Map) EncodeMsg(en *msgp.Writer) (err error) {
 		}
 		err = zb0006.Future.EncodeMsg(en)
 		if err != nil {
+			err = msgp.WrapError(err, zb0005, "Future")
 			return
 		}
 		// write "ChangeOn"
@@ -250,6 +279,7 @@ func (z Map) EncodeMsg(en *msgp.Writer) (err error) {
 		}
 		err = en.WriteUint64(zb0006.ChangeOn)
 		if err != nil {
+			err = msgp.WrapError(err, zb0005, "ChangeOn")
 			return
 		}
 	}
@@ -267,12 +297,14 @@ func (z Map) MarshalMsg(b []byte) (o []byte, err error) {
 		o = append(o, 0x83, 0xa7, 0x43, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x74)
 		o, err = zb0006.Current.MarshalMsg(o)
 		if err != nil {
+			err = msgp.WrapError(err, zb0005, "Current")
 			return
 		}
 		// string "Future"
 		o = append(o, 0xa6, 0x46, 0x75, 0x74, 0x75, 0x72, 0x65)
 		o, err = zb0006.Future.MarshalMsg(o)
 		if err != nil {
+			err = msgp.WrapError(err, zb0005, "Future")
 			return
 		}
 		// string "ChangeOn"
@@ -287,6 +319,7 @@ func (z *Map) UnmarshalMsg(bts []byte) (o []byte, err error) {
 	var zb0003 uint32
 	zb0003, bts, err = msgp.ReadMapHeaderBytes(bts)
 	if err != nil {
+		err = msgp.WrapError(err)
 		return
 	}
 	if (*z) == nil {
@@ -302,6 +335,7 @@ func (z *Map) UnmarshalMsg(bts []byte) (o []byte, err error) {
 		zb0003--
 		zb0001, bts, err = msgp.ReadStringBytes(bts)
 		if err != nil {
+			err = msgp.WrapError(err)
 			return
 		}
 		var field []byte
@@ -309,33 +343,39 @@ func (z *Map) UnmarshalMsg(bts []byte) (o []byte, err error) {
 		var zb0004 uint32
 		zb0004, bts, err = msgp.ReadMapHeaderBytes(bts)
 		if err != nil {
+			err = msgp.WrapError(err, zb0001)
 			return
 		}
 		for zb0004 > 0 {
 			zb0004--
 			field, bts, err = msgp.ReadMapKeyZC(bts)
 			if err != nil {
+				err = msgp.WrapError(err, zb0001)
 				return
 			}
 			switch msgp.UnsafeString(field) {
 			case "Current":
 				bts, err = zb0002.Current.UnmarshalMsg(bts)
 				if err != nil {
+					err = msgp.WrapError(err, zb0001, "Current")
 					return
 				}
 			case "Future":
 				bts, err = zb0002.Future.UnmarshalMsg(bts)
 				if err != nil {
+					err = msgp.WrapError(err, zb0001, "Future")
 					return
 				}
 			case "ChangeOn":
 				zb0002.ChangeOn, bts, err = msgp.ReadUint64Bytes(bts)
 				if err != nil {
+					err = msgp.WrapError(err, zb0001, "ChangeOn")
 					return
 				}
 			default:
 				bts, err = msgp.Skip(bts)
 				if err != nil {
+					err = msgp.WrapError(err, zb0001)
 					return
 				}
 			}

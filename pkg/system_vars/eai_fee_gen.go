@@ -15,6 +15,7 @@ func (z *EAIFee) MarshalMsg(b []byte) (o []byte, err error) {
 	o = append(o, 0x82, 0xa3, 0x46, 0x65, 0x65)
 	o, err = z.Fee.MarshalMsg(o)
 	if err != nil {
+		err = msgp.WrapError(err, "Fee")
 		return
 	}
 	// string "To"
@@ -24,6 +25,7 @@ func (z *EAIFee) MarshalMsg(b []byte) (o []byte, err error) {
 	} else {
 		o, err = z.To.MarshalMsg(o)
 		if err != nil {
+			err = msgp.WrapError(err, "To")
 			return
 		}
 	}
@@ -37,18 +39,21 @@ func (z *EAIFee) UnmarshalMsg(bts []byte) (o []byte, err error) {
 	var zb0001 uint32
 	zb0001, bts, err = msgp.ReadMapHeaderBytes(bts)
 	if err != nil {
+		err = msgp.WrapError(err)
 		return
 	}
 	for zb0001 > 0 {
 		zb0001--
 		field, bts, err = msgp.ReadMapKeyZC(bts)
 		if err != nil {
+			err = msgp.WrapError(err)
 			return
 		}
 		switch msgp.UnsafeString(field) {
 		case "Fee":
 			bts, err = z.Fee.UnmarshalMsg(bts)
 			if err != nil {
+				err = msgp.WrapError(err, "Fee")
 				return
 			}
 		case "To":
@@ -64,12 +69,14 @@ func (z *EAIFee) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				}
 				bts, err = z.To.UnmarshalMsg(bts)
 				if err != nil {
+					err = msgp.WrapError(err, "To")
 					return
 				}
 			}
 		default:
 			bts, err = msgp.Skip(bts)
 			if err != nil {
+				err = msgp.WrapError(err)
 				return
 			}
 		}
@@ -99,6 +106,7 @@ func (z EAIFeeTable) MarshalMsg(b []byte) (o []byte, err error) {
 		o = append(o, 0x82, 0xa3, 0x46, 0x65, 0x65)
 		o, err = z[za0001].Fee.MarshalMsg(o)
 		if err != nil {
+			err = msgp.WrapError(err, za0001, "Fee")
 			return
 		}
 		// string "To"
@@ -108,6 +116,7 @@ func (z EAIFeeTable) MarshalMsg(b []byte) (o []byte, err error) {
 		} else {
 			o, err = z[za0001].To.MarshalMsg(o)
 			if err != nil {
+				err = msgp.WrapError(err, za0001, "To")
 				return
 			}
 		}
@@ -120,6 +129,7 @@ func (z *EAIFeeTable) UnmarshalMsg(bts []byte) (o []byte, err error) {
 	var zb0002 uint32
 	zb0002, bts, err = msgp.ReadArrayHeaderBytes(bts)
 	if err != nil {
+		err = msgp.WrapError(err)
 		return
 	}
 	if cap((*z)) >= int(zb0002) {
@@ -133,18 +143,21 @@ func (z *EAIFeeTable) UnmarshalMsg(bts []byte) (o []byte, err error) {
 		var zb0003 uint32
 		zb0003, bts, err = msgp.ReadMapHeaderBytes(bts)
 		if err != nil {
+			err = msgp.WrapError(err, zb0001)
 			return
 		}
 		for zb0003 > 0 {
 			zb0003--
 			field, bts, err = msgp.ReadMapKeyZC(bts)
 			if err != nil {
+				err = msgp.WrapError(err, zb0001)
 				return
 			}
 			switch msgp.UnsafeString(field) {
 			case "Fee":
 				bts, err = (*z)[zb0001].Fee.UnmarshalMsg(bts)
 				if err != nil {
+					err = msgp.WrapError(err, zb0001, "Fee")
 					return
 				}
 			case "To":
@@ -160,12 +173,14 @@ func (z *EAIFeeTable) UnmarshalMsg(bts []byte) (o []byte, err error) {
 					}
 					bts, err = (*z)[zb0001].To.UnmarshalMsg(bts)
 					if err != nil {
+						err = msgp.WrapError(err, zb0001, "To")
 						return
 					}
 				}
 			default:
 				bts, err = msgp.Skip(bts)
 				if err != nil {
+					err = msgp.WrapError(err, zb0001)
 					return
 				}
 			}
