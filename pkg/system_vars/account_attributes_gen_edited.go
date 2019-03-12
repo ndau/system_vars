@@ -13,6 +13,7 @@ func (z AccountAttributes) MarshalMsg(b []byte) (o []byte, err error) {
 	for za0001, za0002 := range z {
 		o = msgp.AppendString(o, za0001)
 		o = msgp.AppendMapHeader(o, uint32(len(za0002)))
+		// EDIT: Using underscore to fix compile error about declared but unused variables.
 		for za0003, _ := range za0002 {
 			o = msgp.AppendString(o, za0003)
 			// map header, size 0
