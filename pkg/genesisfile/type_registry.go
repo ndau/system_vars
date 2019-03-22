@@ -4,7 +4,6 @@ import (
 	"github.com/oneiro-ndev/ndaumath/pkg/address"
 	"github.com/oneiro-ndev/ndaumath/pkg/eai"
 	"github.com/oneiro-ndev/ndaumath/pkg/signature"
-	"github.com/oneiro-ndev/system_vars/pkg/svi"
 	sv "github.com/oneiro-ndev/system_vars/pkg/system_vars"
 )
 
@@ -17,7 +16,6 @@ func init() {
 	RegisterValuable(&signature.PublicKey{})
 	RegisterValuable(&eai.RTRow{})
 	RegisterValuable(&sv.EAIFee{})
-	RegisterValuable(&svi.Map{})
 }
 
 // RegisterValuable registers a Valuable instance
