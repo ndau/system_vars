@@ -1,6 +1,7 @@
 package generator
 
 import (
+	"encoding/base64"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -185,7 +186,22 @@ func GenerateData() (gfile genesisfile.GFile, assc Associated, err error) {
 	// We can therefore trim the final three digits and use push5
 	err = gfile.Set(sv.ExchangeEAIScriptName, vm.MiniAsm("handler 0 push5 00 c8 17 a8 04 enddef").Bytes())
 	if err != nil {
-		err = errors.Wrap(err, "setting goodness func")
+		err = errors.Wrap(err, "setting exchange EAI script")
+		return
+	}
+
+	// set up SIBScript
+	//
+	// See https://github.com/oneiro-ndev/chaincode_scripts/blob/e8289c66fd39b0830cbc06066f771d8eafead370/src/sib/sib.chasm
+	var script []byte
+	script, err = base64.StdEncoding.DecodeString("oAAmABCl1OgADwJGBSYAnGkw3QDDiiAQjwUlAIhSanTBiiUAiFJqdBCPJQCIUmp0CSUAiFJqdEElAIhSanRJJgCcaTDdACUAiFJqdEFGQIg=")
+	if err != nil {
+		err = errors.Wrap(err, "decoding SIB script")
+		return
+	}
+	err = gfile.Set(sv.SIBScriptName, script)
+	if err != nil {
+		err = errors.Wrap(err, "setting SIB script")
 		return
 	}
 
