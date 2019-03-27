@@ -222,9 +222,8 @@ func PackValue(v interface{}) (out Value, err error) {
 //
 // Only certain data types are supported:
 //
-// - bool, int, int64, uint, uint64: converted using appropriate wkt encodings
+// - bool, int, int64, uint, uint64, []byte, string: converted using appropriate wkt encodings
 // - time.Time: written directly in msgPack format
-// - []byte, string: represented as []byte
 // - <type implementing msgp.Marshaler>: packed with its MarshalMsg
 func (v Value) IntoBytes() ([]byte, error) {
 	val, err := v.Unpack()
