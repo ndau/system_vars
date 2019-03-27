@@ -176,6 +176,19 @@ func GenerateData() (gfile genesisfile.GFile, assc Associated, err error) {
 		return
 	}
 
+	// set up ExchangeEAIScript
+	//
+	// We want a default of 20000000000 (2%). Miniasm requires the raw bytes,
+	// little-endian:
+	//     >>> struct.pack('<q', 20000000000)
+	//     b'\x00\xc8\x17\xa8\x04\x00\x00\x00'
+	// We can therefore trim the final three digits and use push5
+	err = gfile.Set(sv.ExchangeEAIScriptName, vm.MiniAsm("handler 0 push5 00 c8 17 a8 04 enddef").Bytes())
+	if err != nil {
+		err = errors.Wrap(err, "setting goodness func")
+		return
+	}
+
 	return
 }
 
