@@ -201,6 +201,12 @@ func GenerateData() (gfile genesisfile.GFile, assc Associated, err error) {
 		return
 	}
 
+	// set up recordpricenav account
+	err = generateSystemAccount(assc, gfile.Set, sv.RecordEndowmentNAV)
+	if err != nil {
+		return
+	}
+
 	// set up ExchangeEAIScript
 	//
 	// We want a default of 20000000000 (2%). Miniasm requires the raw bytes,
