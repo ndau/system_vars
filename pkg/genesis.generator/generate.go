@@ -201,6 +201,12 @@ func GenerateData() (gfile genesisfile.GFile, assc Associated, err error) {
 		return
 	}
 
+	// set up recordpricenav account
+	err = generateSystemAccount(assc, gfile.Set, sv.RecordEndowmentNAV)
+	if err != nil {
+		return
+	}
+
 	// set up ExchangeEAIScript
 	//
 	// We want a default of 20000000000 (2%). Miniasm requires the raw bytes,
@@ -216,9 +222,9 @@ func GenerateData() (gfile genesisfile.GFile, assc Associated, err error) {
 
 	// set up SIBScript
 	//
-	// See https://github.com/oneiro-ndev/chaincode_scripts/blob/e8289c66fd39b0830cbc06066f771d8eafead370/src/sib/sib.chasm
+	// See https://github.com/oneiro-ndev/chaincode_scripts/blob/69dbb74d8471c03f6ca9cd5e0f95192f42189cef/src/sib/sib.chasm
 	var script []byte
-	script, err = base64.StdEncoding.DecodeString("oAAmABCl1OgADwJGBSYAnGkw3QDDiiAQjwUlAIhSanTBiiUAiFJqdBCPJQCIUmp0CSUAiFJqdEElAIhSanRJJgCcaTDdACUAiFJqdEFGQIg=")
+	script, err = base64.StdEncoding.DecodeString("oAAmAJxpMN0AJgAQpdToAEYFDQLAiiAQjwUPAkEPAkEmABCl1OgACUYlAIhSanQmABCl1OgARgUlAIhSanTEiiUAiFJqdBCPiA==")
 	if err != nil {
 		err = errors.Wrap(err, "decoding SIB script")
 		return
