@@ -241,6 +241,13 @@ func GenerateData() (gfile genesisfile.GFile, assc Associated, err error) {
 		return
 	}
 
+	// set up EAI overtime default
+	err = gfile.Set(sv.EAIOvertime, math.Duration(30*math.Day))
+	if err != nil {
+		err = errors.Wrap(err, "setting EAI Overtime duration")
+		return
+	}
+
 	return
 }
 
