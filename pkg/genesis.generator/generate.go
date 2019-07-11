@@ -97,10 +97,10 @@ func GenerateData() (gfile genesisfile.GFile, assc Associated, err error) {
 		return
 	}
 
-	// make default settlement duration
-	err = gfile.Set(sv.DefaultSettlementDurationName, math.Duration(math.Day*2))
+	// make default recourse duration
+	err = gfile.Set(sv.DefaultRecourseDurationName, math.Duration(math.Day*2))
 	if err != nil {
-		err = errors.Wrap(err, "setting default settlement duration")
+		err = errors.Wrap(err, "setting default recourse duration")
 		return
 	}
 
