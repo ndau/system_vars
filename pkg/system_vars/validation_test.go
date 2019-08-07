@@ -183,3 +183,17 @@ func TestAccountAttributesSelfValidation(t *testing.T) {
 	require.NotNil(t, v)
 	require.False(t, *v)
 }
+
+func TestChaincodeSelfValidation(t *testing.T) {
+	// ensure chaincode has the right semantic properties
+	cc := vm.MiniAsm("zero one push1 2 ifnz")
+	data, err := cc.MarshalMsg(nil)
+	require.NoError(t, err)
+
+	v := sv.ValidateChaincode(data)
+	require.False(t, v)
+
+	vp := sv.IsValid(sv.SIBScriptName, data)
+	require.NotNil(t, vp)
+	require.False(t, *vp)
+}

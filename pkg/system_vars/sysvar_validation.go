@@ -117,5 +117,9 @@ func ValidateAddress(data []byte) bool {
 // ValidateChaincode ensures this value works as a Chaincode script
 func ValidateChaincode(data []byte) bool {
 	c := vm.Chaincode{}
-	return validateM(&c, data)
+	v := validateM(&c, data)
+	if v {
+		v = v && c.IsValid() == nil
+	}
+	return v
 }
