@@ -96,6 +96,28 @@ func reverse(t *testing.T, data []byte) []byte {
 	return out
 }
 
+func flipBit(t *testing.T, data []byte) []byte {
+	out := make([]byte, len(data))
+	copy(out, data)
+	idx := rand.Intn(len(data))
+	bidx := rand.Intn(8)
+	out[idx] = data[idx] ^ (1 << uint(bidx))
+	t.Logf("in:  %x", data)
+	t.Logf("out: %x", out)
+	return out
+}
+
+func flipBits(t *testing.T, data []byte) []byte {
+	out := make([]byte, len(data))
+	copy(out, data)
+
+	for i := 0; i < 4; i++ {
+		out = flipBit(t, out)
+	}
+
+	return out
+}
+
 func TestValidators(t *testing.T) {
 	cases := []struct {
 		name       string
@@ -104,25 +126,25 @@ func TestValidators(t *testing.T) {
 	}{
 		{sv.MinNodeRegistrationStakeName, ndau, nil},
 		{sv.SIBScriptName, chaincode, reverse},
-		{sv.RecordPriceAddressName, addr, reverse},
+		{sv.RecordPriceAddressName, addr, flipBits},
 		{sv.ExchangeEAIScriptName, chaincode, reverse},
-		{sv.ChangeSchemaAddressName, addr, reverse},
-		{sv.DisputeRulesAccountAddressName, addr, reverse},
+		{sv.ChangeSchemaAddressName, addr, flipBits},
+		{sv.DisputeRulesAccountAddressName, addr, flipBits},
 		{sv.NodeGoodnessFuncName, chaincode, reverse},
 		{sv.TxFeeScriptName, chaincode, reverse},
 		{sv.EAIOvertime, duration, nil},
 		{sv.UnlockedRateTableName, rateTable, reverse},
 		{sv.LockedRateTableName, rateTable, reverse},
 		{sv.AccountAttributesName, accountAttributes, reverse},
-		{sv.RecordEndowmentNAVAddressName, addr, reverse},
-		{sv.ReleaseFromEndowmentAddressName, addr, reverse},
+		{sv.RecordEndowmentNAVAddressName, addr, flipBits},
+		{sv.ReleaseFromEndowmentAddressName, addr, flipBits},
 		{sv.DefaultRecourseDurationName, duration, nil},
-		{sv.SetSysvarAddressName, addr, reverse},
-		{sv.CommandValidatorChangeAddressName, addr, reverse},
-		{sv.NodeRulesAccountAddressName, addr, reverse},
-		{sv.NominateNodeRewardAddressName, addr, reverse},
+		{sv.SetSysvarAddressName, addr, flipBits},
+		{sv.CommandValidatorChangeAddressName, addr, flipBits},
+		{sv.NodeRulesAccountAddressName, addr, flipBits},
+		{sv.NominateNodeRewardAddressName, addr, flipBits},
 		{sv.EAIFeeTableName, feeTable, reverse},
-		{sv.BPCRulesAccountAddressName, addr, reverse},
+		{sv.BPCRulesAccountAddressName, addr, flipBits},
 	}
 
 	t.Run("Valid", func(t *testing.T) {

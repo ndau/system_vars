@@ -111,7 +111,11 @@ func ValidateNdau(data []byte) bool {
 // ValidateAddress ensures this value works as an Address
 func ValidateAddress(data []byte) bool {
 	a := address.Address{}
-	return validateM(&a, data)
+	v := validateM(&a, data)
+	if v {
+		v = v && a.Revalidate() == nil
+	}
+	return v
 }
 
 // ValidateChaincode ensures this value works as a Chaincode script
