@@ -30,3 +30,7 @@ var NodeRulesAccount = SysAcct{
 		Private: NodeRulesAccountValidationPrivateName,
 	},
 }
+
+func init() {
+	RegisterFuncValidator(NodeRulesAccountAddressName, ValidateAddress)
+}

@@ -5,3 +5,7 @@ package sv
 // EAI Overtime is a math.Duration constraining the max awarded interval between
 // CreditEAI transactions.
 const EAIOvertime = "EAIOvertime"
+
+func init() {
+	RegisterFuncValidator(EAIOvertime, ValidateDuration)
+}

@@ -30,3 +30,7 @@ var ReleaseFromEndowment = SysAcct{
 		Private: ReleaseFromEndowmentValidationPrivateName,
 	},
 }
+
+func init() {
+	RegisterFuncValidator(ReleaseFromEndowmentAddressName, ValidateAddress)
+}

@@ -42,3 +42,7 @@ var NominateNodeReward = SysAcct{
 		Private: NominateNodeRewardValidationPrivateName,
 	},
 }
+
+func init() {
+	RegisterFuncValidator(NominateNodeRewardAddressName, ValidateAddress)
+}

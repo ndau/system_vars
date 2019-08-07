@@ -30,3 +30,7 @@ var CommandValidatorChange = SysAcct{
 		Private: CommandValidatorChangeValidationPrivateName,
 	},
 }
+
+func init() {
+	RegisterFuncValidator(CommandValidatorChangeAddressName, ValidateAddress)
+}

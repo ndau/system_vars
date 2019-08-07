@@ -70,3 +70,12 @@ func (f *EAIFee) UnmarshalText(text []byte) error {
 
 	return nil
 }
+
+// Zeroize implements Validatable
+func (e *EAIFeeTable) Zeroize() {
+	*e = make(EAIFeeTable, 0)
+}
+
+func init() {
+	RegisterTypeValidator(EAIFeeTableName, &EAIFeeTable{})
+}

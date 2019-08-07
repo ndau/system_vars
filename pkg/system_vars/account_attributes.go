@@ -16,3 +16,12 @@ const (
 
 // AccountAttributes is a list of EAI fees and their destinations
 type AccountAttributes map[string]map[string]struct{}
+
+// Zeroize implements validatable
+func (aa *AccountAttributes) Zeroize() {
+	*aa = make(AccountAttributes)
+}
+
+func init() {
+	RegisterTypeValidator(AccountAttributesName, &AccountAttributes{})
+}
