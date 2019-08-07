@@ -68,6 +68,11 @@ func IsValid(name string, data []byte) *bool {
 		tv.Zeroize()
 		leftovers, err := tv.UnmarshalMsg(data)
 		v := err == nil && len(leftovers) == 0
+		if v {
+			if sv, ok := tv.(SelfValidatable); ok {
+				v = v && sv.Validate()
+			}
+		}
 		return &v
 	}
 	return nil
@@ -79,6 +84,11 @@ type Validatable interface {
 
 	// reset this instance to the zero value
 	Zeroize()
+}
+
+// A SelfValidatable type is one which applies additional self-validation
+type SelfValidatable interface {
+	Validate() bool
 }
 
 func validateM(m msgp.Unmarshaler, data []byte) bool {

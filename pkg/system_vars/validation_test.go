@@ -165,3 +165,21 @@ func TestValidators(t *testing.T) {
 		require.Nil(t, v)
 	})
 }
+
+func TestAccountAttributesSelfValidation(t *testing.T) {
+	aa := make(sv.AccountAttributes)
+
+	data := make([]byte, address.MinDataLength*2)
+	_, err := rand.Read(data)
+	require.NoError(t, err)
+	addr, err := address.Generate(address.KindUser, data)
+	require.NoError(t, err)
+	aa[sv.AccountAttributeExchange] = map[string]struct{}{addr.String(): struct{}{}}
+
+	m, err := aa.MarshalMsg(nil)
+	require.NoError(t, err)
+
+	v := sv.IsValid(sv.AccountAttributesName, m)
+	require.NotNil(t, v)
+	require.False(t, *v)
+}
