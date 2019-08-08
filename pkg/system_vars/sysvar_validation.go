@@ -71,7 +71,7 @@ func IsValid(name string, data []byte) *bool {
 		v := err == nil && len(leftovers) == 0
 		if v {
 			if sv, ok := tv.(SelfValidatable); ok {
-				v = v && sv.Validate()
+				v = sv.Validate()
 			}
 		}
 		return &v
@@ -114,7 +114,7 @@ func ValidateAddress(data []byte) bool {
 	a := address.Address{}
 	v := validateM(&a, data)
 	if v {
-		v = v && a.Revalidate() == nil
+		v = a.Revalidate() == nil
 	}
 	return v
 }
@@ -125,7 +125,7 @@ func ValidateChaincode(data []byte) bool {
 	v := validateM(&b, data)
 	if v {
 		c := vm.ToChaincode(b)
-		v = v && c.IsValid() == nil
+		v = c.IsValid() == nil
 	}
 	return v
 }
