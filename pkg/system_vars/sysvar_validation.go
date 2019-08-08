@@ -4,6 +4,7 @@ import (
 	"sort"
 
 	"github.com/oneiro-ndev/chaincode/pkg/vm"
+	"github.com/oneiro-ndev/msgp-well-known-types/wkt"
 	"github.com/oneiro-ndev/ndaumath/pkg/address"
 	math "github.com/oneiro-ndev/ndaumath/pkg/types"
 	"github.com/tinylib/msgp/msgp"
@@ -120,9 +121,10 @@ func ValidateAddress(data []byte) bool {
 
 // ValidateChaincode ensures this value works as a Chaincode script
 func ValidateChaincode(data []byte) bool {
-	c := vm.Chaincode{}
-	v := validateM(&c, data)
+	b := wkt.Bytes{}
+	v := validateM(&b, data)
 	if v {
+		c := vm.ToChaincode(b)
 		v = v && c.IsValid() == nil
 	}
 	return v

@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/oneiro-ndev/chaincode/pkg/vm"
+	"github.com/oneiro-ndev/msgp-well-known-types/wkt"
 	"github.com/oneiro-ndev/ndaumath/pkg/address"
 	"github.com/oneiro-ndev/ndaumath/pkg/constants"
 	"github.com/oneiro-ndev/ndaumath/pkg/eai"
@@ -41,7 +42,8 @@ func addr(t *testing.T) []byte {
 
 func chaincode(t *testing.T) []byte {
 	cc := vm.MiniAsm("handler 0 zero enddef")
-	m, err := cc.MarshalMsg(nil)
+	cb := wkt.Bytes(cc.Bytes())
+	m, err := cb.MarshalMsg(nil)
 	require.NoError(t, err)
 	return m
 }
