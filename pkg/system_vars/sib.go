@@ -5,6 +5,10 @@ package sv
 // This sytem variable stores the chaincode script for calculating SIB.
 const SIBScriptName = "SIBScript"
 
+func init() {
+	RegisterFuncValidator(SIBScriptName, ValidateChaincode)
+}
+
 // RecordPriceAddressName is the name of the RecordPriceAddress system variable
 //
 // The value contained in this system variable must be of type address.Address
@@ -34,4 +38,8 @@ var RecordPrice = SysAcct{
 		Public:  RecordPriceValidationName,
 		Private: RecordPriceValidationPrivateName,
 	},
+}
+
+func init() {
+	RegisterFuncValidator(RecordPriceAddressName, ValidateAddress)
 }

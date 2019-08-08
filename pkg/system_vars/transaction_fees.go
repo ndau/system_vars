@@ -5,3 +5,7 @@ package sv
 // This sytem variable store the chaincode script used to calculate transaction
 // fees.
 const TxFeeScriptName = "TransactionFeeScript"
+
+func init() {
+	RegisterFuncValidator(TxFeeScriptName, ValidateChaincode)
+}

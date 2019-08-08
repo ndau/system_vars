@@ -30,3 +30,7 @@ var DisputeRulesAccount = SysAcct{
 		Private: DisputeRulesAccountValidationPrivateName,
 	},
 }
+
+func init() {
+	RegisterFuncValidator(DisputeRulesAccountAddressName, ValidateAddress)
+}

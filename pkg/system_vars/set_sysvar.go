@@ -30,3 +30,7 @@ var SetSysvar = SysAcct{
 		Private: SetSysvarValidationPrivateName,
 	},
 }
+
+func init() {
+	RegisterFuncValidator(SetSysvarAddressName, ValidateAddress)
+}

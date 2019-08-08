@@ -5,3 +5,7 @@ package sv
 // This sytem variable stores the chaincode script for calculating EAI rate for
 // exchange accounts.
 const ExchangeEAIScriptName = "ExchangeEAIScript"
+
+func init() {
+	RegisterFuncValidator(ExchangeEAIScriptName, ValidateChaincode)
+}

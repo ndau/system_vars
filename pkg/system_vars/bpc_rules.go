@@ -30,3 +30,7 @@ var BPCRulesAccount = SysAcct{
 		Private: BPCRulesAccountValidationPrivateName,
 	},
 }
+
+func init() {
+	RegisterFuncValidator(BPCRulesAccountAddressName, ValidateAddress)
+}

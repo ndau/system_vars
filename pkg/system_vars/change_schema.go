@@ -30,3 +30,7 @@ var ChangeSchema = SysAcct{
 		Private: ChangeSchemaValidationPrivateName,
 	},
 }
+
+func init() {
+	RegisterFuncValidator(ChangeSchemaAddressName, ValidateAddress)
+}

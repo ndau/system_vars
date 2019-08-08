@@ -30,3 +30,7 @@ var RecordEndowmentNAV = SysAcct{
 		Private: RecordEndowmentNAVValidationPrivateName,
 	},
 }
+
+func init() {
+	RegisterFuncValidator(RecordEndowmentNAVAddressName, ValidateAddress)
+}

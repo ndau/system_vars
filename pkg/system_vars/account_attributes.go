@@ -1,5 +1,9 @@
 package sv
 
+import (
+	"github.com/oneiro-ndev/ndaumath/pkg/address"
+)
+
 //go:generate msgp -io=0
 
 // AccountAttributesName is the name of the AccountAttributes system variable
@@ -16,3 +20,26 @@ const (
 
 // AccountAttributes is a list of EAI fees and their destinations
 type AccountAttributes map[string]map[string]struct{}
+
+// Zeroize implements validatable
+func (aa *AccountAttributes) Zeroize() {
+	*aa = make(AccountAttributes)
+}
+
+// Validate implements SelfValidatable
+//
+// In this case, it exists to reduce the chance that someone reversed the order
+// of the map keys by enforcing that all top-level keys must be valid addresses
+func (aa *AccountAttributes) Validate() bool {
+	for addr := range *aa {
+		_, err := address.Validate(addr)
+		if err != nil {
+			return false
+		}
+	}
+	return true
+}
+
+func init() {
+	RegisterTypeValidator(AccountAttributesName, &AccountAttributes{})
+}
