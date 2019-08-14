@@ -8,7 +8,6 @@ import (
 
 	"github.com/oneiro-ndev/chaincode/pkg/vm"
 	"github.com/oneiro-ndev/ndaumath/pkg/address"
-	"github.com/oneiro-ndev/ndaumath/pkg/constants"
 	"github.com/oneiro-ndev/ndaumath/pkg/eai"
 	"github.com/oneiro-ndev/ndaumath/pkg/signature"
 	math "github.com/oneiro-ndev/ndaumath/pkg/types"
@@ -109,13 +108,6 @@ func GenerateData() (gfile genesisfile.GFile, assc Associated, err error) {
 	err = gfile.Set(sv.TxFeeScriptName, vm.MiniAsm("handler 0 zero enddef").Bytes())
 	if err != nil {
 		err = errors.Wrap(err, "setting tx fee script")
-		return
-	}
-
-	// min stake for an account to be active
-	err = gfile.Set(sv.MinNodeRegistrationStakeName, math.Ndau(1000*constants.QuantaPerUnit))
-	if err != nil {
-		err = errors.Wrap(err, "setting min stake")
 		return
 	}
 
