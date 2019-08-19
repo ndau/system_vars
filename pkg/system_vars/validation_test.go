@@ -126,7 +126,6 @@ func TestValidators(t *testing.T) {
 		makeData   func(t *testing.T) []byte
 		invalidate func(t *testing.T, data []byte) []byte
 	}{
-		{sv.MinNodeRegistrationStakeName, ndau, nil},
 		{sv.SIBScriptName, chaincode, reverse},
 		{sv.RecordPriceAddressName, addr, flipBits},
 		{sv.ExchangeEAIScriptName, chaincode, reverse},
