@@ -129,3 +129,9 @@ func ValidateChaincode(data []byte) bool {
 	}
 	return v
 }
+
+// ValidateUInt64 ensures this value works as a wkt.Uint64
+func ValidateUInt64(data []byte) bool {
+	i := wkt.Uint64(0)
+	return validateM(&i, data)
+}
