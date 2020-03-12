@@ -11,10 +11,10 @@ package genesisfile
 
 
 import (
-	"github.com/oneiro-ndev/ndaumath/pkg/address"
-	"github.com/oneiro-ndev/ndaumath/pkg/eai"
-	"github.com/oneiro-ndev/ndaumath/pkg/signature"
-	sv "github.com/oneiro-ndev/system_vars/pkg/system_vars"
+	"github.com/ndau/ndaumath/pkg/address"
+	"github.com/ndau/ndaumath/pkg/eai"
+	"github.com/ndau/ndaumath/pkg/signature"
+	sv "github.com/ndau/system_vars/pkg/system_vars"
 )
 
 var valuableRegistry map[string]Valuable

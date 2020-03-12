@@ -16,13 +16,13 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/oneiro-ndev/chaincode/pkg/vm"
-	"github.com/oneiro-ndev/ndaumath/pkg/address"
-	"github.com/oneiro-ndev/ndaumath/pkg/eai"
-	"github.com/oneiro-ndev/ndaumath/pkg/signature"
-	math "github.com/oneiro-ndev/ndaumath/pkg/types"
-	"github.com/oneiro-ndev/system_vars/pkg/genesisfile"
-	sv "github.com/oneiro-ndev/system_vars/pkg/system_vars"
+	"github.com/ndau/chaincode/pkg/vm"
+	"github.com/ndau/ndaumath/pkg/address"
+	"github.com/ndau/ndaumath/pkg/eai"
+	"github.com/ndau/ndaumath/pkg/signature"
+	math "github.com/ndau/ndaumath/pkg/types"
+	"github.com/ndau/system_vars/pkg/genesisfile"
+	sv "github.com/ndau/system_vars/pkg/system_vars"
 	"github.com/pkg/errors"
 )
 
@@ -230,7 +230,7 @@ func GenerateData() (gfile genesisfile.GFile, assc Associated, err error) {
 
 	// set up SIBScript
 	//
-	// See https://github.com/oneiro-ndev/chaincode_scripts/blob/69dbb74d8471c03f6ca9cd5e0f95192f42189cef/src/sib/sib.chasm
+	// See https://github.com/ndau/chaincode_scripts/blob/69dbb74d8471c03f6ca9cd5e0f95192f42189cef/src/sib/sib.chasm
 	var script []byte
 	script, err = base64.StdEncoding.DecodeString("oAAmAJxpMN0AJgAQpdToAEYFDQLAiiAQjwUPAkEPAkEmABCl1OgACUYlAIhSanQmABCl1OgARgUlAIhSanTEiiUAiFJqdBCPiA==")
 	if err != nil {

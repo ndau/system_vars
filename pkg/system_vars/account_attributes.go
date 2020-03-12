@@ -11,7 +11,7 @@ package sv
 
 
 import (
-	"github.com/oneiro-ndev/ndaumath/pkg/address"
+	"github.com/ndau/ndaumath/pkg/address"
 )
 
 //go:generate msgp -io=0

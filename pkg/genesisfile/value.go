@@ -16,10 +16,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/oneiro-ndev/msgp-well-known-types/wkt"
-	"github.com/oneiro-ndev/ndaumath/pkg/eai"
-	math "github.com/oneiro-ndev/ndaumath/pkg/types"
-	sv "github.com/oneiro-ndev/system_vars/pkg/system_vars"
+	"github.com/ndau/msgp-well-known-types/wkt"
+	"github.com/ndau/ndaumath/pkg/eai"
+	math "github.com/ndau/ndaumath/pkg/types"
+	sv "github.com/ndau/system_vars/pkg/system_vars"
 	"github.com/pkg/errors"
 	"github.com/tinylib/msgp/msgp"
 )

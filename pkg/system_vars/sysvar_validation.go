@@ -13,10 +13,10 @@ package sv
 import (
 	"sort"
 
-	"github.com/oneiro-ndev/chaincode/pkg/vm"
-	"github.com/oneiro-ndev/msgp-well-known-types/wkt"
-	"github.com/oneiro-ndev/ndaumath/pkg/address"
-	math "github.com/oneiro-ndev/ndaumath/pkg/types"
+	"github.com/ndau/chaincode/pkg/vm"
+	"github.com/ndau/msgp-well-known-types/wkt"
+	"github.com/ndau/ndaumath/pkg/address"
+	math "github.com/ndau/ndaumath/pkg/types"
 	"github.com/tinylib/msgp/msgp"
 )
 

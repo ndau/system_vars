@@ -11,7 +11,7 @@ package sv
 
 
 import (
-	"github.com/oneiro-ndev/ndaumath/pkg/eai"
+	"github.com/ndau/ndaumath/pkg/eai"
 )
 
 // UnlockedRateTableName is the name of the UnlockedRateTable system variable.
