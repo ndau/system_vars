@@ -1,7 +1,7 @@
 package sv
 
 // ----- ---- --- -- -
-// Copyright 2019 Oneiro NA, Inc. All Rights Reserved.
+// Copyright 2019, 2020 The Axiom Foundation. All Rights Reserved.
 //
 // Licensed under the Apache License 2.0 (the "License").  You may not use
 // this file except in compliance with the License.  You can obtain a copy
