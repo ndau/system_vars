@@ -9,7 +9,6 @@ package sv
 // https://www.apache.org/licenses/LICENSE-2.0.txt
 // - -- --- ---- -----
 
-
 // MinDurationBetweenNodeRewardNominationsName names the minimum duration
 // permitted between node rewards nominations
 //
@@ -57,7 +56,7 @@ const (
 	// NodeMaxValidators specifies how many registered nodes are given
 	// validation power. The set of nodes is sorted by goodness; only this
 	// many of the best receive validation power in proportion to their goodness.
-	NodeMaxValidators = "MAX_VALIDATORS"
+	NodeMaxValidators = "MaxValidatorNodes"
 	// NodeRewardMaxRewarded specifies how many registered nodes are in contention
 	// for each node reward. The set of nodes is sorted by goodness; only this
 	// many of the best are eligible to receive node rewards.
