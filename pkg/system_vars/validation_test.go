@@ -9,10 +9,10 @@ package sv_test
 // https://www.apache.org/licenses/LICENSE-2.0.txt
 // - -- --- ---- -----
 
-
 import (
 	"fmt"
 	"math/rand"
+	"os"
 	"testing"
 
 	"github.com/ndau/chaincode/pkg/vm"
@@ -23,6 +23,7 @@ import (
 	math "github.com/ndau/ndaumath/pkg/types"
 	sv "github.com/ndau/system_vars/pkg/system_vars"
 	"github.com/stretchr/testify/require"
+	"github.com/tinylib/msgp/msgp"
 )
 
 func ndau(t *testing.T) []byte {
@@ -82,6 +83,7 @@ func accountAttributes(t *testing.T) []byte {
 
 func feeTable(t *testing.T) []byte {
 	qty := 1 + rand.Intn(10)
+	qty = 3
 	ft := make(sv.EAIFeeTable, qty)
 	for idx := range ft {
 		data := make([]byte, address.MinDataLength*2)
@@ -94,6 +96,13 @@ func feeTable(t *testing.T) []byte {
 		}
 	}
 	m, err := ft.MarshalMsg(nil)
+
+	if !*(sv.IsValid("EAIFeeTable", m)) {
+		fmt.Println("EAIFeeTable is not valid")
+	}
+	msgp.UnmarshalAsJSON(os.Stdout, m)
+	ft.UnmarshalMsg(m)
+
 	require.NoError(t, err)
 	t.Log(ft)
 	t.Logf("%x", m)
