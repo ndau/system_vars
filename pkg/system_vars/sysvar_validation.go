@@ -9,7 +9,6 @@ package sv
 // https://www.apache.org/licenses/LICENSE-2.0.txt
 // - -- --- ---- -----
 
-
 import (
 	"sort"
 
@@ -70,10 +69,10 @@ func HasValidator(name string) bool {
 // system variable.
 //
 // In the event the name is unknown, this function will return nil.
-func IsValid(name string, data []byte) *bool {
+func IsValid(name string, data []byte) (*bool, error) {
 	if fv, ok := funcValidators[name]; ok {
 		v := fv(data)
-		return &v
+		return &v, nil
 	}
 	if tv, ok := typeValidators[name]; ok {
 		tv.Zeroize()
@@ -84,9 +83,9 @@ func IsValid(name string, data []byte) *bool {
 				v = sv.Validate()
 			}
 		}
-		return &v
+		return &v, err
 	}
-	return nil
+	return nil, nil
 }
 
 // A Validatable type is one which can be unmarshaled and zeroized
