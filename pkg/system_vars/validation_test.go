@@ -9,7 +9,6 @@ package sv_test
 // https://www.apache.org/licenses/LICENSE-2.0.txt
 // - -- --- ---- -----
 
-
 import (
 	"fmt"
 	"math/rand"
@@ -162,7 +161,8 @@ func TestValidators(t *testing.T) {
 		for _, tc := range cases {
 			t.Run(tc.name, func(t *testing.T) {
 				require.True(t, sv.HasValidator(tc.name))
-				v := sv.IsValid(tc.name, tc.makeData(t))
+				v, err := sv.IsValid(tc.name, tc.makeData(t))
+				require.NoError(t, err)
 				require.NotNil(t, v)
 				require.True(t, *v)
 			})
@@ -171,7 +171,8 @@ func TestValidators(t *testing.T) {
 	t.Run("Leftovers", func(t *testing.T) {
 		for _, tc := range cases {
 			t.Run(tc.name, func(t *testing.T) {
-				v := sv.IsValid(tc.name, append(tc.makeData(t), 0x00))
+				v, err := sv.IsValid(tc.name, append(tc.makeData(t), 0x00))
+				require.NoError(t, err)
 				require.NotNil(t, v)
 				require.False(t, *v)
 			})
@@ -181,7 +182,7 @@ func TestValidators(t *testing.T) {
 		for _, tc := range cases {
 			if tc.invalidate != nil {
 				t.Run(tc.name, func(t *testing.T) {
-					v := sv.IsValid(tc.name, tc.invalidate(t, tc.makeData(t)))
+					v, _ := sv.IsValid(tc.name, tc.invalidate(t, tc.makeData(t)))
 					require.NotNil(t, v)
 					require.False(t, *v)
 				})
@@ -194,7 +195,8 @@ func TestValidators(t *testing.T) {
 		require.NoError(t, err)
 		name := fmt.Sprintf("%q", data)[:32]
 		require.False(t, sv.HasValidator(name))
-		v := sv.IsValid(name, data)
+		v, err := sv.IsValid(name, data)
+		require.NoError(t, err)
 		require.Nil(t, v)
 	})
 }
@@ -212,7 +214,8 @@ func TestAccountAttributesSelfValidation(t *testing.T) {
 	m, err := aa.MarshalMsg(nil)
 	require.NoError(t, err)
 
-	v := sv.IsValid(sv.AccountAttributesName, m)
+	v, err := sv.IsValid(sv.AccountAttributesName, m)
+	require.NoError(t, err)
 	require.NotNil(t, v)
 	require.False(t, *v)
 }
@@ -226,7 +229,8 @@ func TestChaincodeSelfValidation(t *testing.T) {
 	v := sv.ValidateChaincode(data)
 	require.False(t, v)
 
-	vp := sv.IsValid(sv.SIBScriptName, data)
+	vp, err := sv.IsValid(sv.SIBScriptName, data)
+	require.NoError(t, err)
 	require.NotNil(t, vp)
 	require.False(t, *vp)
 }
